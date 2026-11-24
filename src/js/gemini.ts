@@ -18,28 +18,53 @@ export async function generateRomanticMessage(
       .map((msg) => `"${msg.content.substring(0, 50)}..." - ${msg.source}`)
       .join('\n');
 
+    // Agregar variabilidad con un número aleatorio y timestamp
+    const randomSeed = Math.floor(Math.random() * 1000000);
+    const timestamp = Date.now();
+    
+    // Seleccionar aleatoriamente qué tipo de mensaje queremos
+    const messageTypes = ['canción', 'poema', 'escritura'];
+    const preferredType = messageTypes[Math.floor(Math.random() * messageTypes.length)];
+
     const prompt = `Eres un generador de mensajes románticos para "El Correo de CLEN". 
-Debes generar UN SOLO mensaje romántico que puede ser de uno de estos tipos:
+    
+IMPORTANTE: Cada mensaje debe ser COMPLETAMENTE ÚNICO y DIFERENTE. 
+
+Genera UN SOLO mensaje romántico que puede ser de uno de estos tipos:
 
 1. **CANCIÓN DE AMOR**: Un fragmento significativo de una balada o canción romántica (en español o inglés). 
    - Si es en inglés, DEBES incluir la traducción al español.
    - Incluye el nombre de la canción y el artista.
    - Elige fragmentos emotivos del coro o versos memorables.
+   - Puede ser de cualquier época: clásicas, modernas, latinas, anglosajonas, baladas, boleros, etc.
 
 2. **POEMA**: Un poema romántico clásico o contemporáneo.
    - Puede ser completo si es corto, o un fragmento significativo si es largo.
    - Incluye el nombre del poema y el autor.
+   - Autores sugeridos: Pablo Neruda, Rubén Darío, Gustavo Adolfo Bécquer, Mario Benedetti, Gabriela Mistral, Octavio Paz, Federico García Lorca, etc.
 
 3. **ESCRITURA SAGRADA**: Un versículo sobre el amor de la Biblia o del Libro de Mormón.
    - Incluye el libro, capítulo y versículo.
    - Debe transmitir un mensaje de amor, esperanza o compañía.
+   - Ejemplos: 1 Corintios 13, Cantar de los Cantares, 1 Juan 4, Moroni 7, etc.
 
-**IMPORTANTE**: 
+**RESTRICCIONES IMPORTANTES**: 
 - NO uses ninguno de estos contenidos previos:
 ${previousContents || 'Ninguno aún (es el primer mensaje)'}
 
-- El mensaje debe ser único, emotivo y significativo.
-- RESPONDE ÚNICAMENTE con un objeto JSON válido en este formato exacto:
+- El mensaje debe ser ÚNICO y DIFERENTE a cualquier otro que hayas generado.
+- Prioriza generar un mensaje de tipo: ${preferredType}
+- Usa esta semilla aleatoria para garantizar variedad: ${randomSeed}
+- Timestamp actual: ${timestamp}
+
+**INSTRUCCIONES DE VARIEDAD**:
+- Si ya generaste una canción de los 80s, elige una moderna o latina
+- Si ya generaste un poema de Neruda, elige otro autor
+- Si ya generaste 1 Corintios, elige otro libro bíblico
+- Varía entre idiomas (español e inglés)
+- Varía entre épocas y estilos
+
+RESPONDE ÚNICAMENTE con un objeto JSON válido en este formato exacto:
 
 {
   "type": "song" | "poem" | "scripture",
@@ -117,6 +142,41 @@ function getFallbackMessage(previousMessages: Message[]): GeminiResponse {
       author: 'Pablo Neruda',
       translation: undefined,
     },
+    {
+      type: 'song',
+      content: 'Cuando me enamoro, se detiene el tiempo\nY cuando tú me miras, se ilumina el cielo\nCuando tú me abrazas, yo siento que vuelo\nSi me das un beso, el mundo es perfecto',
+      source: 'Cuando Me Enamoro',
+      author: 'Enrique Iglesias',
+      translation: undefined,
+    },
+    {
+      type: 'poem',
+      content: 'Tú me quieres blanca,\nme quieres de espumas,\nme quieres de nácar.\nQue sea azucena\nsobre todas, casta.',
+      source: 'Tú me quieres blanca',
+      author: 'Alfonsina Storni',
+      translation: undefined,
+    },
+    {
+      type: 'scripture',
+      content: 'Pon tu amor, cual sello, sobre tu corazón, como una marca sobre tu brazo. Porque fuerte es como la muerte el amor.',
+      source: 'Cantar de los Cantares 8:6',
+      author: 'Biblia',
+      translation: undefined,
+    },
+    {
+      type: 'song',
+      content: "Every little thing she does is magic\nEverything she do just turns me on\nEven though my life before was tragic\nNow I know my love for her goes on",
+      source: 'Every Little Thing She Does Is Magic',
+      author: 'The Police',
+      translation: 'Cada pequeña cosa que ella hace es mágica\nTodo lo que hace simplemente me enciende\nAunque mi vida antes era trágica\nAhora sé que mi amor por ella continúa',
+    },
+    {
+      type: 'poem',
+      content: 'Amor mío, si muero y tú no mueres,\namor mío, si mueres y no muero,\nno demos al dolor más territorio:\nno hay extensión como la que vivimos.',
+      source: 'Si Tú Me Olvidas',
+      author: 'Pablo Neruda',
+      translation: undefined,
+    },
   ];
 
   // Filtrar mensajes que no se hayan usado
@@ -125,11 +185,9 @@ function getFallbackMessage(previousMessages: Message[]): GeminiResponse {
     (msg) => !usedContents.has(msg.content)
   );
 
-  // Si ya se usaron todos, reiniciar con el primero
-  if (availableMessages.length === 0) {
-    return fallbackMessages[0];
-  }
-
-  // Retornar un mensaje aleatorio de los disponibles
-  return availableMessages[Math.floor(Math.random() * availableMessages.length)];
+  // Si ya se usaron todos, seleccionar uno aleatorio de todos
+  const pool = availableMessages.length > 0 ? availableMessages : fallbackMessages;
+  
+  // Retornar un mensaje aleatorio
+  return pool[Math.floor(Math.random() * pool.length)];
 }
