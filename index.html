@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="El Correo de CLEN - Recibe un mensaje de amor cada día" />
+    <title>El Correo de CLEN</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <h1 class="logo">El Correo de CLEN</h1>
+      <p class="subtitle">Un mensaje de amor para ti cada día</p>
+    </header>
+
+    <!-- Contenedor principal -->
+    <main class="container">
+      <!-- Vista del buzón -->
+      <div id="mailbox-view" class="main-view">
+        <div id="mailbox-container"></div>
+        <div id="status-message" class="mt-lg text-center"></div>
+      </div>
+
+      <!-- Vista de la galería -->
+      <div id="gallery-view" class="hidden">
+        <div class="gallery-header">
+          <h2>Tus Mensajes Guardados</h2>
+          <div class="gallery-actions">
+            <button id="btn-filter-all" class="btn btn-secondary">Todos</button>
+            <button id="btn-filter-songs" class="btn btn-secondary">Canciones</button>
+            <button id="btn-filter-poems" class="btn btn-secondary">Poemas</button>
+            <button id="btn-filter-scriptures" class="btn btn-secondary">Escrituras</button>
+            <button id="btn-export" class="btn btn-primary">Exportar</button>
+          </div>
+        </div>
+        <div id="gallery-container" class="gallery-grid"></div>
+      </div>
+
+      <!-- Botón para alternar vistas -->
+      <div class="view-toggle text-center mt-xl">
+        <button id="btn-toggle-view" class="btn btn-primary"></button>
+      </div>
+    </main>
+
+    <!-- Modal para mostrar mensajes -->
+    <div id="message-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+      <div class="spinner"></div>
+      <p class="mt-md">Generando tu mensaje...</p>
+    </div>
+
+    <script type="module" src="/src/js/main.ts"></script>
+  </body>
+</html>

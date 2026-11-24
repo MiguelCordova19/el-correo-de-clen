@@ -1,0 +1,43 @@
+<svg width="400" height="500" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Poste del buzón (parte inferior) -->
+  <rect x="175" y="350" width="50" height="140" fill="#DEB887" stroke="#C19A6B" stroke-width="2"/>
+  <rect x="170" y="345" width="60" height="8" fill="#C19A6B"/>
+  
+  <!-- Cuerpo principal del buzón -->
+  <g id="mailbox-body">
+    <!-- Parte trasera del buzón -->
+    <rect x="80" y="150" width="240" height="200" fill="#A78BFA" stroke="#7C3AED" stroke-width="3"/>
+    
+    <!-- Tapa redondeada superior -->
+    <path d="M 80 150 Q 200 50, 320 150" fill="#9F7AFA" stroke="#7C3AED" stroke-width="3"/>
+    <path d="M 80 150 L 80 165 Q 200 65, 320 165 L 320 150 Q 200 50, 80 150" fill="#8B5CF6"/>
+    
+    <!-- Parte frontal más clara -->
+    <rect x="85" y="155" width="230" height="190" fill="#C4B5FD" opacity="0.3"/>
+  </g>
+  
+  <!-- Puerta del buzón (animable) -->
+  <g id="mailbox-door" transform-origin="150 200">
+    <rect x="110" y="200" width="90" height="120" rx="8" fill="#DDD6FE" stroke="#7C3AED" stroke-width="2"/>
+    <rect x="115" y="205" width="80" height="110" rx="6" fill="#E6E0FF" stroke="#A78BFA" stroke-width="1"/>
+    <!-- Ranura de correo -->
+    <rect x="130" y="240" width="50" height="4" rx="2" fill="#7C3AED"/>
+    <rect x="130" y="248" width="50" height="4" rx="2" fill="#7C3AED"/>
+  </g>
+  
+  <!-- Bandera del buzón (roja levantada) -->
+  <g id="mailbox-flag">
+    <rect x="325" y="180" width="10" height="50" fill="#7C3AED" rx="2"/>
+    <rect x="335" y="185" width="45" height="30" rx="3" fill="#EF4444" stroke="#DC2626" stroke-width="2"/>
+    <circle cx="340" cy="200" r="3" fill="#FEF2F2"/>
+  </g>
+  
+  <!-- Detalles decorativos -->
+  <circle cx="155" cy="260" r="6" fill="#7C3AED"/>
+  
+  <!-- Sombra del buzón -->
+  <ellipse cx="200" cy="485" rx="120" ry="12" fill="#7C3AED" opacity="0.2"/>
+  
+  <!-- Efecto de profundidad en la tapa -->
+  <path d="M 85 150 Q 200 55, 315 150" fill="none" stroke="#E6D5F5" stroke-width="2" opacity="0.6"/>
+</svg>
